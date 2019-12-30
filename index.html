@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to brainfuck</title>
+    <link rel="icon" type="image/png" href="stuff/images/pic_re.png">
+    <link rel="stylesheet" type="text/css" href="real.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="real.js"></script>
+    <script src="intepreter.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style type="text/css">
+        .hover {
+            position: absolute;
+            background-image: url(img/2.png);
+            background-size: cover;
+            width: 150px;
+            height: 150px;
+            top: 100%;
+            left: 100%;
+            margin-top: -150px;
+            margin-left: -50px;
+            cursor: pointer;
+        }
+        
+         ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        table tr {
+            background-color: white;
+            text-align: justify;
+        }
+        
+        .divcss {
+            box-shadow: 5px 9px 17px #333333;
+            -webkit-box-shadow: 5px 9px 17px #333333;
+            -moz-box-shadow: 5px 9px 17px #333333;
+            border-radius: 40px;
+            -webkit-border-radius: 40px;
+            -moz-border-radius: 40px;
+        }
+        
+        .textdiv {
+            opacity: 0.87;
+            text-shadow: 2px 2px 6px #333333;
+        }
+        
+        .gifs {
+            position: absolute;
+            width: 550px;
+            height: 400px;
+            left: 50%;
+            top: 50%;
+            z-index: 75;
+            display: none;
+            margin-top: -200px;
+            margin-left: -275px;
+        }
+        
+        .closebtn {
+            position: relative;
+            border: solid;
+            border-color: white;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-image: url(img/escbut.jpg);
+            background-size: cover;
+            background-position: center;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .switchbtn {
+            position: relative;
+            border: solid;
+            border-color: white;
+            border-radius: 10%;
+            cursor: pointer;
+            left: 37%;
+        }
+        
+        #popBox {
+            position: absolute;
+            display: none;
+            padding: 0%;
+            width: 500px;
+            height: 300px;
+            left: 50%;
+            top: 50%;
+            margin-top: -150px;
+            margin-left: -250px;
+            z-index: 74;
+            display: none;
+            background: url(img/start.png);
+            background-size: cover;
+        }
+        
+        #mytable {
+            position: absolute;
+            padding: 0%;
+            top: 84%;
+        }
+        
+        #count {
+            text-align: center;
+            line-height: 50px;
+            vertical-align: middle;
+            position: relative;
+            font-size: 20px;
+            height: 50px;
+            width: 40px;
+            color: red;
+            font-weight: bold;
+            left: 87%;
+            top: -5%;
+            border-radius: 10%;
+            background-color: white;
+        }
+        
+        #mytable tr td {
+            background-color: white;
+            padding: 0%;
+            transition: background-color 0.48763s;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="s10">
+        <source src="img/10s.mp4" type="video/mp4">
+    </video>
+    <video id="allend">
+        <source src="img/end.mp4" type="video/mp4">
+    </video>
+    <video id="loose">
+        <source src="img/loose.mp4" type="video/mp4">
+    </video>
+    <audio id="ost" loop>
+        <source src="ost.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="dead">
+        <source src="dead.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="victory">
+        <source src="Victory.mp3" type="audio/mpeg">
+    </audio>
+    <div id="content">
+        <div class="hover"></div>
+    </div>
+    <div id="popBox" class="divcss">
+        <button id="close" class='closebtn'></button>
+        <button id="shuffle" onclick="shuffle()" class='switchbtn'>switch</button>
+        <div id='count'></div>
+        <div class="textdiv">
+            <table id='mytable' cellspacing="0">
+                <tr>
+                    <td>點</td>
+                    <td>擊</td>
+                    <td>s</td>
+                    <td>w</td>
+                    <td>i</td>
+                    <td>t</td>
+                    <td>c</td>
+                    <td>c</td>
+                    <td>h</td>
+                    <td>開</td>
+                    <td>始</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="guide" class="guide">
+        <div class="guide-con">
+            <div class="slideshow-container">
+
+                <div class="mySlides fade">
+                    <div class="numbertext">1 / 3</div>
+                    <img src="stuff/images/guide1.png" style="width:100%" class="guide_img">
+                    <a download href="stuff/00757143_00757121期末報告.pptx">our powerpoint</a>
+                </div>
+
+                <div class="mySlides fade">
+                    <div class="numbertext">2 / 3</div>
+                    <img src="stuff/images/guide2.png" style="width:100%" class="guide_img">
+                    <a download href="stuff/00757143_00757121期末報告.pptx">our powerpoint</a>
+                </div>
+
+                <div class="mySlides fade">
+                    <div class="numbertext">3 / 3</div>
+                    <img src="stuff/images/guide3.jpg" style="width:100%" class="guide_img">
+                    <div class="text">Just remember to have fun!</div>
+                    <a download href="stuff/00757143_00757121期末報告.pptx">our powerpoint</a>
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            </div>
+            <br>
+
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+
+            <button id="got-it" class="got-it">I got it!</button>
+        </div>
+    </div>
+    <div class="top_nav_bar">
+        <nav>
+            <div class="nav_item">
+                <a href="index.html"><img src="stuff/images/pic.png" width="50px" style="position: relative; top:3px;"></a>
+            </div>
+            <div class="text_link nav_item" style="position: relative; top:-10px">
+                <a href="credits.html">Credits</a>
+            </div>
+            <div class="text_link nav_item" style="position: relative; top:-10px">
+                <a href="developers.html">Developers</a>
+            </div>
+            <div class="text_link nav_item" style="position: relative; top:-10px">
+                <p onclick="guide()">Guides</p>
+            </div>
+            <div class="text_link nav_item" style="position: relative; top:-10px">
+                <a href="links.html">Links</a>
+            </div>
+            <div class="text_link nav_item" style="position: relative; top:-10px">
+                <a href="tutorials.html">Tutorials</a>
+            </div>
+            <div class="text_link nav_item" style="position: relative; top:-10px">
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav_item">
+                <form action="https://www.google.com/search" class="searchform" methozzzzzzzzzzzzd="get" name="searchform" target="_blank">
+                    <div class="nav_item">
+                        <input autocomplete="on" id="search" class="form-control search searchbar" name="q" placeholder="Search your stuff on Google" required="required" type="text">
+                    </div>
+                    <div class="nav_item"><input type="image" name="submit" src="stuff/images/search_icon2.png" alt="Submit" class="searchbt" id="searchbt"></div>
+                </form>
+            </div>
+            <div class="nav_item">
+                <a href="https://github.com/dkyg1087/welcome_to_Brainfuck" target="_blank"><img src="stuff/images/GitHub-Mark-120px-plus.png" width="50px" height="50px"></a>
+            </div>
+        </nav>
+    </div>
+    <div class="outer-con" style="width:200px; height:530px; float:left; ">
+        Text to ASCII converter
+        <hr> Enter character:<br>
+        <textarea id="Ascii" style="height:50px;" wrap="off"></textarea> result:
+        <br><textarea style="height:50px;" readonly id="ascii_out"></textarea> <br>
+        <hr><br><button onclick="begin()" class="runbt" id="rbt">Run code</button>
+        <button onclick="play()" class="runbt" id="plbt">Play</button><br><br>
+        <button onclick="playpause()" class="runbt" id="ppbt">Pause/Resume</button><br><br>
+        <button onclick="stop()" class="runbt" id="stbt">Stop</button><br><br>
+        <button onclick="faster()" class="runbt" id="fabt">Faster</button>
+        <button onclick="slower()" class="runbt" id="slbt">Slower</button>
+        <div id="interval">Current interval:<textarea id="inter_num" style="width:33px;height:15px; position:relative; top:2px;">100</textarea id="inter_num" style="width:30px;height:15px;">ms
+            <button onclick="do_once()" class="runbt" id="doon">Next cmd</button>
+        </div>
+        <a download href="stuff/00757143_00757121期末報告.pptx">our powerpoint</a>
+    </div>
+    <div class="outer-con" style="float:left;">Code:<br><textarea class="linked" id="num" style="width:30px; height:300px; border-right: none;" readonly>1.</textarea><textarea class="linked" id="code_block" wrap="off" style="width:600px; height:300px;">+[-[<<[+[--->]-[<<<]]]>>>-]>-.---.>..>.<<<<-.<+.>>>>>.>.<<.<-.</textarea></div>
+        <div class="outer-con" style="float:left; height:330px;">Input:<br><textarea id="input_box" style="width:300px; height:130px;"></textarea><br>Output:<br><textarea id="output" style="width:300px; height:140px;" readonly></textarea></div>
+        <div class="outer-con" style="float:left; width:1010px; height:190px;">
+            <div id="c_cmd">Current command:</div>
+            <table class="celltable" id="celltable">
+                <tr>
+                    <td class="currently_on">cell#1</td>
+                    <td>cell#2</td>
+                    <td>cell#3</td>
+                    <td>cell#4</td>
+                    <td>cell#5</td>
+                    <td>cell#6</td>
+                    <td>cell#7</td>
+                    <td>cell#8</td>
+                    <td>cell#9</td>
+                    <td>cell#10</td>
+                </tr>
+                <tr>
+                    <td class="currently_on">0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>cell#11</td>
+                    <td>cell#12</td>
+                    <td>cell#13</td>
+                    <td>cell#14</td>
+                    <td>cell#15</td>
+                    <td>cell#16</td>
+                    <td>cell#17</td>
+                    <td>cell#18</td>
+                    <td>cell#19</td>
+                    <td>cell#20</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>cell#21</td>
+                    <td>cell#22</td>
+                    <td>cell#23</td>
+                    <td>cell#24</td>
+                    <td>cell#25</td>
+                    <td>cell#26</td>
+                    <td>cell#27</td>
+                    <td>cell#28</td>
+                    <td>cell#29</td>
+                    <td>cell#30</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </table>
+            <p>Hight-lighted cell means that ptr is on that cell.</p>
+        </div>
+</body>
+<script>
+    var message = "startburst!" //紀錄table值
+    var first = true, //start counting time
+        wrong = false, //td color judge
+        isplaying = false, //左下角圖片enable
+        wtime = 0; //record wrong input times
+    var start, end, again, pos, timer;
+    $('#mytable tr td').css('width', '87px')
+    $('#mytable tr td').attr("align", "center")
+    $('video').addClass('gifs')
+    $('.closebtn').hover(function() {
+        $(this).css('border-color', 'black')
+    })
+    $('.closebtn').mouseleave(function() {
+        $(this).css('border-color', 'white')
+    })
+    $('.switchbtn').hover(function() {
+        $(this).css('border-color', 'black')
+    })
+    $('.switchbtn').mouseleave(function() {
+        $(this).css('border-color', 'white')
+    })
+    $('.hover').mouseover(function() {
+        $(this).animate({
+            left: '95%'
+        })
+    })
+    $('.hover').mouseleave(function() {
+        $(this).animate({
+            left: '100%'
+        })
+    })
+
+    $('.hover').click(function() {
+        if (!isplaying) {
+            isplaying = true
+            window.addEventListener('keypress', keydown, false)
+            window.addEventListener('keydown', ifwrong, false)
+            $('#s10').fadeIn()
+            $('#s10').get(0).play() //拜託了幫我稱十秒
+            $('#ost').get(0).play() //bgm
+            $('#s10').on('ended', function() {
+                $('#s10').fadeOut(function() {
+                    shuffle()
+                    $('#popBox').fadeIn()
+                    $('#content').css('opacity', '0.5')
+                })
+            })
+        }
+    });
+
+    $('#close').click(function() {
+        if (isplaying) {
+            clearInterval(timer);
+            $('#ost').get(0).pause()
+            $('#ost').get(0).currentTime = 0
+            $('#allend').fadeIn(function() {
+                $('#allend').get(0).play()
+                $('#allend').on('ended', function() {
+                    $(window).off('keypress'); /*****************************************/
+                    $(window).off('keydown');
+                    $('#allend').fadeOut(function() {
+                        $('#popBox').fadeOut(function() {
+                            $('#content').css('opacity', '1')
+                            isplaying = false
+                            clearInterval(timer);
+                            shuffle()
+                        })
+                    })
+                })
+            })
+        }
+    });
+
+
+
+    function keydown(event) {
+        if (isplaying) {
+            if (first) {
+                start = new Date().getTime();
+                var counter = 10; //幫我稱10秒
+                timer = setInterval(function() {
+                    counter--;
+                    $('#count').html(counter)
+                    if (counter == 0) {
+                        clearInterval(timer);
+                        shuffle()
+                        $('#ost').get(0).pause()
+                        $('#dead').get(0).play() //你已經死了
+                        $('#loose').fadeIn(function() {
+                            $('#loose').get(0).play() //粉碎
+                            $('#loose').on('ended', function() {
+                                $('#loose').fadeOut(function() {
+                                    if (confirm('do you want to play again?')) { //confirm視窗重複跳出
+                                        $('#ost').get(0).play()
+                                        shuffle()
+                                    } else {
+                                        $('#close').trigger('click')
+                                    }
+                                })
+                            });
+                        })
+                    }
+                }, 1000);
+                first = false
+            }
+            var x = event.keyCode
+            if (x == 13) { //press enter to shuffle
+                shuffle()
+            } else if (String.fromCharCode(x) == message[pos] && !wrong) {
+                $('#' + pos).css('background-color', 'green')
+                if (pos % 2) {
+                    $('#popBox').css({
+                        'background': 'url(img/1.jpg)',
+                        'background-size': 'cover'
+                    })
+                } else {
+                    $('#popBox').css({
+                        'background': 'url(img/2.jpg)',
+                        'background-size': 'cover'
+                    })
+                }
+                pos++
+            } else {
+                $('#' + pos).css('background-color', 'red')
+                wrong = true;
+            }
+
+            if (pos == message.length) {
+                clearInterval(timer);
+                end = new Date().getTime();
+                setTimeout(function() {
+                    alert(((end - start) / 1000 + "sec"))
+                    alert("你錯了" + wtime + "次")
+                    $('#victory').get(0).play()
+                    shuffle()
+                }, 500)
+            }
+        }
+    }
+
+    function ifwrong(event) {
+        var x = event.keyCode
+        if (x == 8 && wrong) { //press backspace
+            wrong = false
+            wtime++
+            $('#' + pos).css('background-color', 'white')
+        } else if (x == 27) {
+            $('#close').trigger('click')
+        }
+    }
+
+    function shuffle() {
+        clearInterval(timer);
+        var table = document.getElementById("mytable");
+        var list = ["<", ">", ",", "[", "]", ".", "+", "-"]
+        table.deleteRow(0)
+        var row = table.insertRow(0);
+        message = ''
+        for (let i = 0; i < 16; i++) {
+            var num = Math.floor(Math.random() * list.length)
+            message += list[num]
+            var cell = row.insertCell(0);
+            cell.id = 15 - i
+            cell.innerHTML = list[num];
+        }
+        //initialization
+        $('td').css('width', '87px')
+        $('td').attr("align", "center");
+        $('#text').val('')
+        message = message.split('').reverse().join('')
+        $('#popBox').css({
+            'background': 'url(img/start.png)',
+            'background-size': 'cover'
+        })
+        $('#count').html(10)
+        first = true
+        wrong = false
+        wtime = 0
+        pos = 0
+    }
+</script>
+
+</html>

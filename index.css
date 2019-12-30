@@ -1,0 +1,46 @@
+textarea {
+    resize: none;
+    border-color: #AB46AA;
+    background-color: rgb(255, 220, 255);
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.runbt {
+    outline: none;
+    background-color: rgb(194, 82, 192);
+    border: 1px solid white;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    box-shadow: 0 3px #999;
+    transition-duration: 0.4s;
+}
+
+.runbt:hover {
+    background-color: white;
+    border: 1px solid #AB46AA;
+    color: #AB46AA;
+}
+
+.runbt:active {
+    background-color: white;
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+}
+
+.celltable {
+    border-collapse: collapse;
+    width: 900px;
+}
+
+.celltable tr td {
+    border: 1px solid #AB46AA;
+}
